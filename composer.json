@@ -9,8 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
-        "aloha/twilio": "^5.0",
-        "darkaonline/l5-swagger": "^8.3",
+         "darkaonline/l5-swagger": "^8.3",
         "fruitcake/laravel-cors": "^3.0",
         "guzzlehttp/guzzle": "^7.5",
         "kutia-software-company/larafirebase": "^1.3",
