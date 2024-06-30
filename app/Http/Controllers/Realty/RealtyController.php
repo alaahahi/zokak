@@ -155,10 +155,10 @@ class RealtyController extends Controller
             'lng' => 'required|numeric',
             'lat' => 'required|numeric'
         ]);
-        $perPage = $request->input('perPage', 20); // Default items per page
+        $perPage = $request->input('perPage', 200); // Default items per page
         $page = $request->input('page', 1); // Default page
-        $lng = $request->input('lng');
-        $lat = $request->input('lat');
+        $lng = $request->input('lng',44.27621528506279);
+        $lat = $request->input('lat',34.341917794594224);
         $radius = $request->input('zoom', 10); // 100 km
 
         try {
