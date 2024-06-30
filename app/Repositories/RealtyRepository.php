@@ -16,6 +16,7 @@ use App\Models\User;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
 use JWTAuth;
+use Illuminate\Support\Facades\DB;
 class RealtyRepository implements CrudInterface
 {
     /**
@@ -52,17 +53,23 @@ class RealtyRepository implements CrudInterface
             ->paginate($perPage);
     }
 
-    public function listHomeRealty($perPage)
+    public function listHomeRealty($perPage,$page,$lng,$lat,$radius)
     {
-        $perPage = isset($perPage) ? intval($perPage) : 500;
+        $properties = Realty::select(
+            'Realty.*',
+            DB::raw("(6371 * acos(cos(radians($lat)) 
+            * cos(radians(Realty.lat)) 
+            * cos(radians(Realty.lng) - radians($lng)) 
+            + sin(radians($lat)) 
+            * sin(radians(Realty.lat)))) AS distance")
+        )
+        ->havingRaw('distance < ?', [$radius])
+        ->orderBy('distance')
+        ->with(['property', 'city', 'governorate', 'compound', 'propertyType'])
+        ->accepted()
+        ->paginate($perPage, ['*'], 'page', $page);
 
-        return Realty::
-        with('property')
-        ->with('city')
-        ->with('governorate')
-        ->with('compound')
-        ->with('propertyType')
-        ->accepted()->paginate($perPage)->items();
+        return $properties->items();
     }
 
     public function listCity()

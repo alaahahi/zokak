@@ -151,9 +151,19 @@ class RealtyController extends Controller
     
     public function listHomeRealty(Request $request): JsonResponse
     {
+        $this->validate($request, [
+            'lng' => 'required|numeric',
+            'lat' => 'required|numeric'
+        ]);
+        $perPage = $request->input('perPage', 20); // Default items per page
+        $page = $request->input('page', 1); // Default page
+        $lng = $request->input('lng');
+        $lat = $request->input('lat');
+        $radius = $request->input('zoom', 10); // 100 km
+
         try {
-            $data = $this->RealtyRepository->listHomeRealty($request->perPage);
-            return $this->responseSuccess($data, 'Realty List Fetched Successfully !');
+            $data = $this->RealtyRepository->listHomeRealty($perPage,$page,$lng,$lat,$radius);
+             return $this->responseSuccess($data, 'Realty List Fetched Successfully !');
         } catch (\Exception $e) {
             return $this->responseError(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
