@@ -151,10 +151,7 @@ class RealtyController extends Controller
     
     public function listHomeRealty(Request $request): JsonResponse
     {
-        $this->validate($request, [
-            'lng' => 'required|numeric',
-            'lat' => 'required|numeric'
-        ]);
+    
         $perPage = $request->input('perPage', 200); // Default items per page
         $page = $request->input('page', 1); // Default page
         $lng = $request->input('lng',44.27621528506279);
