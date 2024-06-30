@@ -156,7 +156,7 @@ class RealtyController extends Controller
         $page = $request->input('page', 1); // Default page
         $lng = $request->input('lng',44.27621528506279);
         $lat = $request->input('lat',34.341917794594224);
-        $radius = $request->input('zoom', 10); // 100 km
+        $radius = $request->input('zoom', 100); // 100 km
 
         try {
             $data = $this->RealtyRepository->listHomeRealty($perPage,$page,$lng,$lat,$radius);
