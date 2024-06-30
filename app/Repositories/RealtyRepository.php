@@ -56,12 +56,12 @@ class RealtyRepository implements CrudInterface
     public function listHomeRealty($perPage,$page,$lng,$lat,$radius)
     {
         $properties = Realty::select(
-            'Realty.*',
+            'realty.*',
             DB::raw("(6371 * acos(cos(radians($lat)) 
-            * cos(radians(Realty.lat)) 
-            * cos(radians(Realty.lng) - radians($lng)) 
+            * cos(radians(realty.lat)) 
+            * cos(radians(realty.lng) - radians($lng)) 
             + sin(radians($lat)) 
-            * sin(radians(Realty.lat)))) AS distance")
+            * sin(radians(realty.lat)))) AS distance")
         )
         ->havingRaw('distance < ?', [$radius])
         ->orderBy('distance')
