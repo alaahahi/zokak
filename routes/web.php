@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Welcome\WelcomeController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\Main\MainController;
+use Illuminate\Support\Facades\Artisan;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,6 +20,10 @@ use App\Http\Controllers\Main\MainController;
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
+});
+Route::get('link', function () {
+    Artisan::call('storage:link');
+    return "yes link";
 });
 
 Route::get('/about', [MainController::class, 'about']);
