@@ -16,7 +16,9 @@ class Ad extends Model
         return $query->where('is_active', true);
     }
     protected $appends = ['image_url'];
-
+    protected $hidden = [
+        'image',
+    ];
     public function getImageUrlAttribute(): string
     {
  
