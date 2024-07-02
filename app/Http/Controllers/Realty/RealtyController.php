@@ -43,7 +43,7 @@ class RealtyController extends Controller
 
     public function __construct(RealtyRepository $RealtyRepository)
     {
-        $this->middleware('auth:api', ['except' => ['indexAll','search','listHomeRealty','delRealtyImage','show','index','property','city','governorate','wishlistsRealty','compound','propertyType','compoundRealty','update']]);
+        $this->middleware('auth:api', ['except' => ['office','adsPages','adsHome','indexAll','search','listHomeRealty','delRealtyImage','show','index','property','city','governorate','wishlistsRealty','compound','propertyType','compoundRealty','update']]);
         $this->RealtyRepository = $RealtyRepository;
     }
 
@@ -277,6 +277,47 @@ class RealtyController extends Controller
                 return $this->responseError(null, 'Realty Not Found', Response::HTTP_NOT_FOUND);
 
             return $this->responseSuccess($data, 'Realty Updated Successfully !');
+        } catch (\Exception $e) {
+            return $this->responseError(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public function adsHome(Request $request): JsonResponse
+    { 
+
+        try {
+            $data = $this->RealtyRepository->adsHome('home');
+            if (is_null($data)){
+                return $this->responseError(null, 'Ads Home Not Found', Response::HTTP_NOT_FOUND);
+            }
+            return $this->responseSuccess($data, 'Ads Home Get Successfully !');
+        } catch (\Exception $e) {
+            return $this->responseError(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public function adsPages(Request $request): JsonResponse
+    { 
+
+        try {
+            $data = $this->RealtyRepository->adsHome('pages');
+            if (is_null($data)){
+                return $this->responseError(null, 'Ads Home Not Found', Response::HTTP_NOT_FOUND);
+            }
+            return $this->responseSuccess($data, 'Ads Home Get Successfully !');
+        } catch (\Exception $e) {
+            return $this->responseError(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+    public function office(Request $request): JsonResponse
+    { 
+
+        try {
+            $data = $this->RealtyRepository->office();
+            if (is_null($data)){
+                return $this->responseError(null, 'office Not Found', Response::HTTP_NOT_FOUND);
+            }
+            return $this->responseSuccess($data, 'office Get Successfully !');
         } catch (\Exception $e) {
             return $this->responseError(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }

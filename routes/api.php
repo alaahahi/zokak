@@ -132,6 +132,15 @@ Route::group([
          Route::get('infoAccount', [AuthController::class, 'me']);
 
          Route::post('feedback', [AuthController::class, 'feedback']);
+
+
+         Route::get('adsHome',  [RealtyController::class, 'adsHome']);
+
+         Route::get('adsPages',  [RealtyController::class, 'adsPages']);
+
+         Route::get('office',  [RealtyController::class, 'office']);
+
+
     });
     
     /**

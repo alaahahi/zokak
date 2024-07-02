@@ -12,7 +12,10 @@ use App\Models\Governorate;
 use App\Models\PropertyType;
 use App\Models\Compound;
 use App\Models\Property;
+use App\Models\Ad;
+use App\Models\Office;
 use App\Models\User;
+
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
 use JWTAuth;
@@ -432,4 +435,15 @@ class RealtyRepository implements CrudInterface
             ->accepted()
             ->get();
     }
+    public function adsHome($type) 
+    {
+        return Ad::where('slug',$type)
+            ->accepted()
+            ->get();
+    }
+    public function office() 
+    {
+        return Office::accepted()->get();
+    }
+    
 }
