@@ -160,53 +160,7 @@ Route::group([
      */
 
 
-    Route::resource('products', ProductsController::class);
-    Route::get('products/view/all', [ProductsController::class, 'indexAll']);
-    Route::get('products/view/search', [ProductsController::class, 'search']);
-
-    Route::resource('category', CategoryController::class);
-    Route::get('category/view/all', [CategoryController::class, 'indexAll']);
-    Route::get('category/view/search', [CategoryController::class, 'search']);
-
-    Route::resource('tag', TagsController::class);
-    Route::get('tag/view/all', [TagsController::class, 'indexAll']);
-    Route::get('tag/view/search', [TagsController::class, 'search']);
-
-    Route::post('brand/{id}',  [RealtyController::class, 'editBrand']);
-
-    Route::resource('brand', RealtyController::class);
-
-    Route::post('editBrand/{id}',  [RealtyController::class, 'editBrand']);
-    Route::get('brand/view/all', [RealtyController::class, 'indexAll']);
-    Route::get('brand/view/search', [RealtyController::class, 'search']);
-
-
-    Route::post('event/{id}',[ EventsController::class,'editEvent']);
-    Route::resource('event', EventsController::class);
-    Route::post('editEvent/{id}',[ EventsController::class,'editEvent']);
-    Route::get('event/view/all', [EventsController::class, 'indexAll']);
-    Route::get('event/view/search', [EventsController::class, 'search']);
-
-    Route::resource('city', CityController::class);
-    Route::get('city/view/all', [CityController::class, 'indexAll']);
-    Route::get('city/view/search', [CityController::class, 'search']);
-
-    Route::resource('slide', SlidesController::class);
-    Route::get('slide/view/all', [SlidesController::class, 'indexAll']);
-    Route::get('slide/view/search', [SlidesController::class, 'search']);
-
-    Route::resource('card', CardController::class);
-    Route::get('card/view/all', [CardController::class, 'indexAll']);
-    Route::get('card/view/search', [CardController::class, 'search']);
-
-
-    Route::resource('wallet', WalletController::class);
-    Route::get('wallet/view/all', [WalletController::class, 'indexAll']);
-    Route::get('wallet/view/search', [WalletController::class, 'search']);
-
-
-
-    Route::get('hunters', [AuthController::class, 'hunters']);
+   
 
     Route::get('dashboardAllInOneRequest', [DashboardController::class, 'dashboardAllInOneRequest']);
 
