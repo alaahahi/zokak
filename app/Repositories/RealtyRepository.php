@@ -441,8 +441,11 @@ class RealtyRepository implements CrudInterface
             ->accepted()
             ->get();
     }
-    public function office() 
+    public function office($governorate_id='') 
     {
+        if($governorate_id){
+        return Office::where('governorate_id',$governorate_id)->accepted()->get();
+        }else
         return Office::accepted()->get();
     }
     

@@ -15,5 +15,10 @@ class Office extends Model
     {
         return $query->where('is_active', true);
     }
+
+    public function governorate()
+    {
+        return $this->belongsTo(Governorate::class);
+    }
     
 }

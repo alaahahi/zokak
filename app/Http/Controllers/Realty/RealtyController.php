@@ -312,8 +312,9 @@ class RealtyController extends Controller
     public function office(Request $request): JsonResponse
     { 
 
+        $governorate_id= $request->governorate_id ?? '';
         try {
-            $data = $this->RealtyRepository->office();
+            $data = $this->RealtyRepository->office($governorate_id);
             if (is_null($data)){
                 return $this->responseError(null, 'office Not Found', Response::HTTP_NOT_FOUND);
             }
