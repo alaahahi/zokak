@@ -11,6 +11,17 @@ class Office extends Model
     use HasFactory;
     protected $table = 'office';
 
+    protected $fillable = [
+        'name',
+        'phone',
+        'other_phone',
+        'address',
+        'is_active',
+        'discretion',
+        'governorate_id'
+    ];
+
+
     public function scopeAccepted($query)
     {
         return $query->where('is_active', true);
