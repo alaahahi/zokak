@@ -31,5 +31,15 @@ class Office extends Model
     {
         return $this->belongsTo(Governorate::class);
     }
-    
+    protected $appends = ['image_url'];
+    protected $hidden = [
+        'image',
+    ];
+    public function getImageUrlAttribute(): string
+    {
+ 
+        $imageUrl = url('') . "/storage/" . $this->image;
+        
+        return str_replace('\\', '/', $imageUrl);
+    }
 }
