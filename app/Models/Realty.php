@@ -65,7 +65,18 @@ class Realty extends Model
         return $query->where('is_active', true)->where('is_published',true);
     }
 
-  
+    public function scopeProperty($query,$property_id)
+    {
+        return $query->where('property_id', $property_id);
+    }
+    public function scopePropertyType($query,$property_type_id)
+    {
+        return $query->where('property_type_id', $property_type_id);
+    }
+    public function scopeGovernorate($query,$governorate_id)
+    {
+        return $query->where('governorate_id', $governorate_id);
+    }
 
     protected $hidden = [
         'image',

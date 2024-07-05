@@ -154,12 +154,14 @@ class RealtyController extends Controller
     
         $perPage = $request->input('perPage', 200); // Default items per page
         $page = $request->input('page', 1); // Default page
-        $lng = $request->input('lng',44.27621528506279);
-        $lat = $request->input('lat',34.341917794594224);
-        $radius = $request->input('zoom', 100); // 100 km
-
+        $lng = $request->lng;
+        $lat = $request->lat;
+        $radius = $request->zoom; // 100 km
+        $propertyId = $request->propertyId;
+        $propertyTypeId = $request->propertyTypeId;
+        $governorateId = $request->governorateId;
         try {
-            $data = $this->RealtyRepository->listHomeRealty($perPage,$page,$lng,$lat,$radius);
+            $data = $this->RealtyRepository->listHomeRealty($perPage,$page,$lng,$lat,$radius,$propertyId,$propertyTypeId,$governorateId);
              return $this->responseSuccess($data, 'Realty List Fetched Successfully !');
         } catch (\Exception $e) {
             return $this->responseError(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);

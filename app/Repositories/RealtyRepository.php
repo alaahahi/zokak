@@ -56,22 +56,44 @@ class RealtyRepository implements CrudInterface
             ->paginate($perPage);
     }
 
-    public function listHomeRealty($perPage,$page,$lng,$lat,$radius)
+    public function listHomeRealty($perPage, $page, $lng = null, $lat = null, $radius = null, $propertyId = null, $property_type_id = null, $governorate_id = null)
     {
-        $properties = Realty::select(
-            'realty.*',
-            DB::raw("(6371 * acos(cos(radians($lat)) 
-            * cos(radians(realty.lat)) 
-            * cos(radians(realty.lng) - radians($lng)) 
-            + sin(radians($lat)) 
-            * sin(radians(realty.lat)))) AS distance")
-        )
-        ->havingRaw('distance < ?', [$radius])
-        ->orderBy('distance')
-        ->with(['property', 'city', 'governorate', 'compound', 'propertyType'])
-        ->accepted()
-        ->paginate($perPage, ['*'], 'page', $page);
+        $query = Realty::select('realty.*');
+    
+        // Add distance calculation and filter only if lng, lat, and radius are provided
+        if (!is_null($lng) && !is_null($lat) && !is_null($radius)) {
+            $query->addSelect(DB::raw("(6371 * acos(cos(radians($lat)) 
+                * cos(radians(realty.lat)) 
+                * cos(radians(realty.lng) - radians($lng)) 
+                + sin(radians($lat)) 
+                * sin(radians(realty.lat)))) AS distance"))
+                ->havingRaw('distance < ?', [$radius])
+                ->orderBy('distance');
+        }
+    
+        // Add eager loading
+        $query->with(['property', 'city', 'governorate', 'compound', 'propertyType']);
+    
+        // Add accepted scope
+        $query->accepted();
+    
+        // Add property filter only if propertyId is provided
+        if (!is_null($propertyId)) {
+            $query->property($propertyId);
+        }
+    
+        // Add property type filter only if property_type_id is provided
+        if (!is_null($property_type_id)) {
+            $query->propertyType($property_type_id);
+        }
 
+        if (!is_null($governorate_id)) {
+            $query->Governorate($governorate_id);
+        }
+    
+        // Paginate the results
+        $properties = $query->paginate($perPage, ['*'], 'page', $page);
+    
         return $properties->items();
     }
 
