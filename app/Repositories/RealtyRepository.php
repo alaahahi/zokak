@@ -316,7 +316,7 @@ class RealtyRepository implements CrudInterface
 
                 $imageName = $titleShort . '-' . time() . '-' . str_replace(' ', '-', $image->getClientOriginalName());
                 $filename = pathinfo($imageName, PATHINFO_FILENAME);
-                $imagePath = UploadHelper::upload('image', $image, $filename, 'storage/realty');
+                $imagePath = UploadHelper::upload('image', $image, $filename, 'storage');
                 $images[] = $imagePath;
         }
 
@@ -356,7 +356,7 @@ class RealtyRepository implements CrudInterface
             return false;
         }
 
-        UploadHelper::deleteFile('images/realty/' . $realty->image);
+        UploadHelper::deleteFile('images/' . $realty->image);
         $realty->delete($realty);
         return true;
     }

@@ -103,10 +103,8 @@ class Realty extends Model
         $imageUrls = [];
     
         foreach ($images as $image) {
-            $imageUrl = url('') . "/storage/realty/" . $image;
-            if (Str::contains($imageUrl, '/realty/realty/')) {
-                $imageUrl = str_replace('/realty/realty/', '/realty/', $imageUrl);
-            }
+            $imageUrl = url('') . "/storage/" . $image;
+        
             
             $imageUrls[] = $imageUrl;
         }
